@@ -2,6 +2,15 @@ const express = require("express");
 const multer = require("multer");
 const XLSX = require("xlsx");
 const path = require("path");
+const fs = require("fs");
+
+if (!fs.existsSync("uploads")) {
+    fs.mkdirSync("uploads");
+}
+
+if (!fs.existsSync("reports")) {
+    fs.mkdirSync("reports");
+}
 
 const parseOrderFile =
 require("../services/orderParser");
