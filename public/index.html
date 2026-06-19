@@ -202,6 +202,7 @@
     background: #0f0f20;
     border: 1px solid var(--border);
     border-radius: 18px;
+z-index:9999;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     animation: dropIn 0.18s ease;
@@ -1214,6 +1215,35 @@ function logout() {
     });
 
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const profileBtn =
+    document.getElementById("profileBtn");
+
+    const profileMenu =
+    document.getElementById("profileMenu");
+
+    if(!profileBtn || !profileMenu) return;
+
+    profileBtn.addEventListener("click", (e) => {
+
+        e.stopPropagation();
+
+        profileMenu.style.display =
+        profileMenu.style.display === "block"
+        ? "none"
+        : "block";
+
+    });
+
+    document.addEventListener("click", () => {
+
+        profileMenu.style.display = "none";
+
+    });
+
+});
 
   // ── File input labels ─────────────────────────
   document.getElementById("ordersFile").addEventListener("change", (e) => {
