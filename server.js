@@ -32,7 +32,7 @@ path.join(__dirname, "reports")
 // Process Route
 app.use("/", processRoute);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
 
