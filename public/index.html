@@ -3,18 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flipkart Settlement Intelligence V3</title>
-<style>
+<title>
+Flipkart Settlement Intelligence V4
+</title><style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
 body{background:#07070b;padding:30px;color:#fff}
 .container{max-width:1300px;margin:auto}
-.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#11111a,#171727,#11111a);border:1px solid rgba(255,255,255,.08);border-radius:35px;padding:60px 40px;text-align:center;margin-bottom:30px}
-.glow{position:absolute;border-radius:50%;filter:blur(90px)}
-.glow1{width:280px;height:280px;background:#7c3aed;top:-100px;left:-80px}
-.glow2{width:250px;height:250px;background:#c084fc;right:-80px;bottom:-80px}
-.hero-icon{width:110px;height:110px;margin:auto;display:flex;align-items:center;justify-content:center;font-size:48px;border-radius:30px;background:linear-gradient(135deg,#7c3aed,#c084fc);box-shadow:0 0 50px rgba(124,58,237,.5)}
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 30px;
+margin-bottom:25px;
+background:#11111a;
+border:1px solid rgba(255,255,255,.08);
+border-radius:22px;
+}
+
+.welcome-card{
+background:#11111a;
+border:1px solid rgba(255,255,255,.08);
+border-radius:25px;
+padding:25px 30px;
+margin-bottom:25px;
+}
+
+.welcome-card h2{
+margin-bottom:8px;
+}
+
+.welcome-card p{
+color:#9ca3af;
+}
+
+.logo{
+font-size:24px;
+font-weight:700;
+}
+
+.logo span{
+color:#c084fc;
+margin-left:8px;
+}
+
+.profile{
+position:relative;
+}
+
+#profileBtn{
+width:auto !important;
+min-width:220px;
+}
+.profile-menu{
+display:none;
+position:absolute;
+right:0;
+top:60px;
+width:220px;
+background:#181825;
+border:1px solid rgba(255,255,255,.08);
+border-radius:18px;
+overflow:hidden;
+z-index:1000;
+}
+
+.menu-item{
+padding:15px;
+cursor:pointer;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.menu-item:hover{
+background:#232338;
+}
+
+.logout{
+color:#ff6b6b;
+}
 .hero h1{font-size:54px;font-weight:800;margin-top:25px;background:linear-gradient(90deg,#fff,#d8b4fe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.version{display:inline-block;margin-top:15px;padding:10px 24px;border-radius:50px;background:rgba(124,58,237,.15);border:1px solid rgba(192,132,252,.35);color:#d8b4fe}
 .hero p{margin-top:20px;color:#bdbdbd}
 form{background:#11111a;border:1px solid rgba(255,255,255,.08);padding:35px;border-radius:30px}
 .upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-bottom:25px}
@@ -38,12 +104,43 @@ button{width:100%;height:65px;border:none;border-radius:20px;font-size:20px;font
 </head>
 <body>
 <div class="container">
-<div class="hero">
-<div class="glow glow1"></div><div class="glow glow2"></div>
-<div class="hero-icon">🚀</div>
-<h1>Flipkart Settlement Intelligence</h1>
-<div class="version">VERSION 3.0 • STABLE BUILD</div>
-<p>Advanced Settlement Reconciliation, Profit Tracking & SKU Intelligence</p>
+<header class="topbar">
+    <div class="logo">
+        🚀 FK Settlement Intelligence
+        <span>V4</span>
+    </div>
+
+    <div class="profile">
+
+        <button id="profileBtn">
+            👤 <span id="userEmail">
+            Loading...
+            </span> ▼
+        </button>
+
+        <div class="profile-menu" id="profileMenu">
+
+            <div class="menu-item">
+                💎 Plan : Free
+            </div>
+
+            <div class="menu-item">
+                📊 Dashboard
+            </div>
+
+            <div class="menu-item logout"
+                 onclick="logout()">
+                 🚪 Logout
+            </div>
+
+        </div>
+
+    </div>
+</header>
+
+<div class="welcome-card">
+   <h2>Welcome Back 👋</h2>
+   <p>Upload your Flipkart reports and generate settlement intelligence.</p>
 </div>
 
 <form id="uploadForm">
@@ -79,10 +176,6 @@ button{width:100%;height:65px;border:none;border-radius:20px;font-size:20px;font
 </div>
 
 <button id="downloadBtn" class="download-btn">⬇ Download Excel Report</button>
-
-<button onclick="logout()">
-🚪 Logout
-</button>
 
 <div class="footer">
 Crafted by <span style="color:#d8b4fe">Ankit Chauhan</span><br>
@@ -155,6 +248,13 @@ firebase.auth().onAuthStateChanged((user)=>{
 
         window.location="login.html";
 
+    }else{
+
+        document.getElementById(
+        "userEmail"
+        ).innerText =
+        user.email;
+
     }
 
 });
@@ -170,5 +270,53 @@ function logout(){
     });
 
 }
+</script>
+<script>
+
+const profileBtn =
+document.getElementById(
+"profileBtn"
+);
+
+const profileMenu =
+document.getElementById(
+"profileMenu"
+);
+
+profileBtn.onclick = ()=>{
+
+profileMenu.style.display =
+
+profileMenu.style.display ===
+"block"
+
+?
+
+"none"
+
+:
+
+"block";
+
+};
+
+document.addEventListener(
+"click",
+(e)=>{
+
+if(
+!profileBtn.contains(e.target)
+&&
+!profileMenu.contains(e.target)
+){
+
+profileMenu.style.display =
+"none";
+
+}
+
+}
+);
+
 </script>
 </body></html>
